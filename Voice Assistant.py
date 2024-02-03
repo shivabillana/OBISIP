@@ -41,9 +41,7 @@ def take_command():
     except sr.UnknownValueError:
         print("Sorry, I did not understand. Please try again.")
         return ""
-    except sr.RequestError:
-        print("Could not request results. Check your network connection.")
-        return ""
+   
     return command
 
 def run_alexa():
