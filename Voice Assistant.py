@@ -10,25 +10,25 @@ listener = sr.Recognizer()
 engine = pyttsx3.init()
 
 # Function to speak the provided text
-def talk(text):
+def speak(text):
     engine.say(text)
     engine.runAndWait()
 
 # Function to greet the user based on the time of day
-def wishme():
+def greeting():
     hour = int(datetime.datetime.now().hour)
     if 0 <= hour < 12:
-        talk('Good Morning!')
+        speak('Good Morning!')
     elif 12 <= hour < 18:
-        talk('Good Afternoon')
+        speak('Good Afternoon')
     else:
-        talk('Good Evening')
+        speak('Good Evening')
 
-    talk('I am Your Voice Assistant. Please tell me how may I help you')
+    speak('I am Your Voice Assistant. Tell me how may I help you')
 
 #Function to execute based on user's command
 def take_command():
-    wishme()
+    greeting()
     try:
         with sr.Microphone() as source:
             print('listening...')
@@ -41,25 +41,24 @@ def take_command():
     except sr.UnknownValueError:
         print("Sorry, I did not understand. Please try again.")
         return ""
-   
     return command
 
-def run_alexa():
+def voice_assistant():
     command = take_command()
     print(command)
     if 'play' in command:
         song = command.replace('play', '')
-        talk('playing ' + song)
+        speak('playing ' + song)
         pywhatkit.playonyt(song)
     elif 'time' in command:
         time = datetime.datetime.now().strftime('%I:%M %p')
-        talk('Current time is ' + time)
+        speak('Current time is ' + time)
     elif 'hello' in command:
-        talk('hi')
+        speak('hi')
     elif 'how are you doing' in command:
-        talk('I am doing good! Thanks for asking!')
+        speak('I am doing good! Thanks for asking!')
     elif 'date' in command:
-        talk('sorry, I have a headache')
+        speak('sorry, I have a headache')
     elif 'open youtube' in command:
         wb.open('https://www.youtube.com')
     elif 'open google' in command:
@@ -67,16 +66,16 @@ def run_alexa():
     elif 'who is' in command:
         person = command.replace('who is', '')
         info = wikipedia.summary(person, 1)
-        talk('According to Wikipedia')
+        speak('According to Wikipedia')
         print(info)
-        talk(info)
+        speak(info)
     elif 'what is' in command:
         car = command.replace('what is', '')
         info = wikipedia.summary(car, 1)
-        talk('According to Wikipedia')
+        speak('According to Wikipedia')
         print(info)
-        talk(info)
+        speak(info)
     elif 'be thankful' in command:
-        talk('Thank you for giving us this opportunity to prove our talent')
+        speak('Thank you for giving us this opportunity to prove our talent')
 
-run_alexa()
+voice_assistant()
